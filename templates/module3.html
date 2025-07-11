@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Module 3: Pricing Strategy{% endblock %}
+{% block content %}
+    <h2>Module 3: Set Your Price</h2>
+    <p>Based on your costs and market data, here are several potential pricing strategies.</p>
+    <div class="summary-box">
+        Your Fully Loaded Cost Per Unit is: <strong>${{ "%.2f"|format(loaded_cost) }}</strong>
+    </div>
+
+    <div class="results-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>Pricing Strategy</th>
+                    <th>Suggested Price</th>
+                    <th>Profit Per Unit</th>
+                    <th>Break-Even Units (per month)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for s in strategies %}
+                <tr>
+                    <td>{{ s.name }}</td>
+                    <td>${{ "%.2f"|format(s.price) }}</td>
+                    <td class="{{ 'positive' if s.profit_per_unit > 0 else 'negative' }}">
+                        ${{ "%.2f"|format(s.profit_per_unit) }}
+                    </td>
+                    <td>{{ s.breakeven_units }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <a href="{{ url_for('module4_optimization_simulator', loaded_cost=loaded_cost, cogs=cogs) }}" class="button-link">
+        Proceed to Optimization Simulator →
+    </a>
+{% endblock %}

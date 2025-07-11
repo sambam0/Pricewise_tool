@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Module 4: Optimization Simulator{% endblock %}
+{% block content %}
+    <h2>Module 4: Improve and Grow</h2>
+    <p>Use this simulator to see how changes in cost, price, and volume can impact your profitability.</p>
+
+    <form method="POST" action="{{ url_for('module4_optimization_simulator') }}">
+        <div class="form-section">
+            <h3>Cost & Price Simulator</h3>
+            <p>Your current COGS is <strong>${{ "%.2f"|format(cogs) }}</strong>. Choose a price from the previous step to start.</p>
+            
+            <input type="hidden" name="original_cogs" value="{{ cogs }}">
+            
+            <label for="original_price">Your Chosen Price ($)</label>
+            <input type="number" name="original_price" id="original_price" step="0.01" required>
+
+            <hr>
+            <h4>What If...</h4>
+
+            <label for="new_cogs">I reduce my COGS to ($)</label>
+            <input type="number" name="new_cogs" id="new_cogs" step="0.01" value="{{ cogs }}">
+            
+            <label for="new_price">I change my price to ($)</label>
+            <input type="number" name="new_price" id="new_price" step="0.01" required>
+
+            <label for="projected_volume">And I project my monthly sales volume to be (units)</label>
+            <input type="number" name="projected_volume" id="projected_volume" step="1" required>
+        </div>
+        <button type="submit">Simulate Profit Impact</button>
+    </form>
+
+    {% if results %}
+    <div class="results-section">
+        <h3>Simulation Results</h3>
+        <div class="summary-box">
+            Original Profit Per Unit: <strong>${{ "%.2f"|format(results.original_profit_per_unit) }}</strong>
+        </div>
+        <div class="summary-box positive">
+            New Simulated Profit Per Unit: <strong>${{ "%.2f"|format(results.new_profit_per_unit) }}</strong><br>
+            Projected Total Monthly Profit: <strong>${{ "%.2f"|format(results.new_total_profit) }}</strong>
+        </div>
+    </div>
+    {% endif %}
+{% endblock %}

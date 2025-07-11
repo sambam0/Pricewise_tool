@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Module 2: Market Analysis{% endblock %}
+{% block content %}
+    <h2>Module 2: Know Your Market</h2>
+    <div class="summary-box">
+        Your <strong>Fully Loaded Cost Per Unit</strong> is: <strong>${{ "%.2f"|format(loaded_cost) }}</strong>. This is your break-even price.
+    </div>
+    <p>Now, let's see what your competitors are doing. Enter the prices of up to 3 similar products.</p>
+    
+    <form method="POST" action="{{ url_for('module2_market_analyzer', loaded_cost=loaded_cost, cogs=request.args.get('cogs'), overhead=request.args.get('overhead')) }}">
+        {% for i in range(1, 4) %}
+        <div class="form-section">
+            <h4>Competitor {{ i }}</h4>
+            <label for="comp_name_{{ i }}">Competitor/Product Name</label>
+            <input type="text" id="comp_name_{{ i }}" name="comp_name_{{ i }}">
+            
+            <label for="comp_price_{{ i }}">Their Retail Price ($)</label>
+            <input type="number" id="comp_price_{{ i }}" name="comp_price_{{ i }}" step="0.01">
+        </div>
+        {% endfor %}
+        
+        <button type="submit">Analyze Market & Generate Pricing Strategies →</button>
+    </form>
+{% endblock %}
