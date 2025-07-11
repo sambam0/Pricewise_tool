@@ -3,7 +3,7 @@ A very basic tool to help small businesses find a suitable price for their produ
 
 To copy the code 
 
-git clone (<link>)
+git clone (link)
 
 cd pricewise_tool
 
