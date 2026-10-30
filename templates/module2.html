@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block title %}2. Competitor quotes{% endblock %}
 {% block content %}
-    <p class="steps">1 Cost · <span class="current">2 Market</span> · 3 Price · 4 What if</p>
+    <p class="steps">1 Your numbers · <span class="current">2 Quotes</span> · 3 Result</p>
     <h2>What similar jobs sell for</h2>
     <div class="summary-box">
         Your cost to deliver this job, including overhead, is <strong>${{ "%.2f"|format(loaded_cost) }}</strong>.
@@ -9,7 +9,7 @@
     </div>
     <p>Enter up to three quotes for a similar job. A name and a price are enough.</p>
 
-    <form method="POST" action="{{ url_for('module2_market_analyzer', loaded_cost=loaded_cost, cogs=cogs, overhead=overhead) }}">
+    <form method="POST" action="{{ url_for('module2_market_analyzer', loaded_cost=loaded_cost, cogs=cogs, overhead=overhead, jobs=jobs, current_price=current_price, margin=margin, demand=demand) }}">
         {% for i in range(1, 4) %}
         <div class="form-section">
             <h4>Quote {{ i }}</h4>
@@ -21,6 +21,6 @@
         </div>
         {% endfor %}
 
-        <button type="submit">Build pricing options</button>
+        <button type="submit">See your price</button>
     </form>
 {% endblock %}

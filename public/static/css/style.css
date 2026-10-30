@@ -77,6 +77,14 @@ label {
     margin-bottom: 0.5rem;
     font-weight: bold;
 }
+label.choice {
+    font-weight: normal;
+    margin-bottom: 0.75rem;
+}
+label.choice input {
+    width: auto;
+    margin: 0 0.5rem 0 0;
+}
 input[type="text"], input[type="number"] {
     width: 100%;
     padding: 10px;
@@ -124,6 +132,9 @@ th {
 }
 tr:nth-child(even) {
     background-color: #f9f9f9;
+}
+tr.starting td {
+    background-color: #e9f5f9;
 }
 .positive { color: #2d6a4f; font-weight: bold; }
 .negative { color: #9b2226; font-weight: bold; }

@@ -1,12 +1,38 @@
 {% extends "base.html" %}
-{% block title %}3. Pricing options{% endblock %}
+{% block title %}3. Your starting price{% endblock %}
 {% block content %}
-    <p class="steps">1 Cost · 2 Market · <span class="current">3 Price</span> · 4 What if</p>
-    <h2>Prices you could charge</h2>
-    <p>If you are unsure, start with cost-plus.</p>
+    <p class="steps">1 Your numbers · 2 Quotes · <span class="current">3 Result</span></p>
+    <h2>Your starting price</h2>
+
     <div class="summary-box">
-        Minimum charge to cover this job and overhead: <strong>${{ "%.2f"|format(loaded_cost) }}</strong>
+        <p>Start at <strong>${{ "%.2f"|format(starting.price) }}</strong>, {{ starting.name }}.</p>
+        <p>{{ reason }}</p>
+        {% if starting_below_cost %}
+        <p>This starting price does not cover the job.</p>
+        {% endif %}
     </div>
+
+    <div class="summary-box">
+        <p>You charge <strong>${{ "%.2f"|format(current_price) }}</strong> today.</p>
+        {% if gap_per_job == 0 %}
+        <p>This matches what you charge now.</p>
+        {% elif gap_per_job < 0 %}
+        <p>You are already above this starting price by <strong>${{ "%.2f"|format(gap_per_job|abs) }}</strong> per job, about <strong>${{ "%.2f"|format(gap_per_month|abs) }}</strong> in a month at {{ jobs }} jobs.</p>
+        {% else %}
+        <p>This starting price is <strong>${{ "%.2f"|format(gap_per_job) }}</strong> more per job, about <strong>${{ "%.2f"|format(gap_per_month) }}</strong> more in a month at {{ jobs }} jobs.</p>
+        {% endif %}
+        {% if current_below_cost %}
+        <p>Your current price does not cover the job.</p>
+        {% endif %}
+    </div>
+
+    {% if capacity %}
+    <div class="summary-box">
+        <p>Covering overhead at this price takes <strong>{{ capacity.needed }}</strong> jobs. You can deliver <strong>{{ capacity.can_deliver }}</strong>.</p>
+    </div>
+    {% endif %}
+
+    <p>Minimum charge to cover this job and overhead: <strong>${{ "%.2f"|format(loaded_cost) }}</strong></p>
 
     {% if competitors %}
     <p>Quotes you entered:
@@ -28,8 +54,8 @@
             </thead>
             <tbody>
                 {% for s in strategies %}
-                <tr>
-                    <td>{{ s.name }}</td>
+                <tr class="{{ 'starting' if s.starting else '' }}">
+                    <td>{{ s.name }}{% if s.starting %} (start here){% endif %}</td>
                     <td>${{ "%.2f"|format(s.price) }}</td>
                     <td class="{{ 'positive' if s.profit_per_unit > 0 else 'negative' }}">
                         ${{ "%.2f"|format(s.profit_per_unit) }}
@@ -42,8 +68,4 @@
     </div>
 
     <p class="credit">Free tool by <a href="https://github.com/sambam0">Samuel Antoncich</a></p>
-
-    <a href="{{ url_for('module4_optimization_simulator', loaded_cost=loaded_cost, cogs=cogs) }}" class="button-link">
-        Try a different cost or price
-    </a>
 {% endblock %}
