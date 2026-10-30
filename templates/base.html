@@ -3,18 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}PriceWise Toolkit{% endblock %}</title>
+    <title>{% block title %}PriceWise{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
     <header>
-        <h1>PriceWise: Strategic Pricing & Cost Optimization Toolkit</h1>
+        <h1>PriceWise</h1>
+        <p>Price a service job without guessing.</p>
     </header>
     <main>
         {% block content %}{% endblock %}
     </main>
     <footer>
-        <p>&copy; 2023 PriceWise Tool</p>
+        <p>Free tool by <a href="https://github.com/sambam0">Samuel Antoncich</a> · <a href="https://github.com/sambam0">github.com/sambam0</a></p>
     </footer>
 </body>
 </html>

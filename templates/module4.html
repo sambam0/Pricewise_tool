@@ -1,43 +1,45 @@
 {% extends "base.html" %}
-{% block title %}Module 4: Optimization Simulator{% endblock %}
+{% block title %}4. What if{% endblock %}
 {% block content %}
-    <h2>Module 4: Improve and Grow</h2>
-    <p>Use this simulator to see how changes in cost, price, and volume can impact your profitability.</p>
+    <p class="steps">1 Cost · 2 Market · 3 Price · <span class="current">4 What if</span></p>
+    <h2>Change the cost, the price, or the volume</h2>
+    <p>See what happens if the job gets cheaper, you charge more, or you deliver more jobs.</p>
 
-    <form method="POST" action="{{ url_for('module4_optimization_simulator') }}">
+    <form method="POST" action="{{ url_for('module4_optimization_simulator', loaded_cost=loaded_cost, cogs=cogs) }}">
         <div class="form-section">
-            <h3>Cost & Price Simulator</h3>
-            <p>Your current COGS is <strong>${{ "%.2f"|format(cogs) }}</strong>. Choose a price from the previous step to start.</p>
-            
+            <h3>This job</h3>
+            <p>Your direct cost for this job is <strong>${{ "%.2f"|format(cogs) }}</strong>. Pick a price from the previous step.</p>
+
+            <input type="hidden" name="loaded_cost" value="{{ loaded_cost }}">
             <input type="hidden" name="original_cogs" value="{{ cogs }}">
-            
-            <label for="original_price">Your Chosen Price ($)</label>
-            <input type="number" name="original_price" id="original_price" step="0.01" required>
+
+            <label for="original_price">Price you would charge ($)</label>
+            <input type="number" name="original_price" id="original_price" step="0.01" required value="{{ entered.original_price }}">
 
             <hr>
-            <h4>What If...</h4>
+            <h4>What if</h4>
 
-            <label for="new_cogs">I reduce my COGS to ($)</label>
-            <input type="number" name="new_cogs" id="new_cogs" step="0.01" value="{{ cogs }}">
-            
+            <label for="new_cogs">My direct cost per job drops to ($)</label>
+            <input type="number" name="new_cogs" id="new_cogs" step="0.01" value="{{ entered.new_cogs }}">
+
             <label for="new_price">I change my price to ($)</label>
-            <input type="number" name="new_price" id="new_price" step="0.01" required>
+            <input type="number" name="new_price" id="new_price" step="0.01" required value="{{ entered.new_price }}">
 
-            <label for="projected_volume">And I project my monthly sales volume to be (units)</label>
-            <input type="number" name="projected_volume" id="projected_volume" step="1" required>
+            <label for="projected_volume">I deliver this many jobs in a month</label>
+            <input type="number" name="projected_volume" id="projected_volume" step="1" required value="{{ entered.projected_volume }}">
         </div>
-        <button type="submit">Simulate Profit Impact</button>
+        <button type="submit">See the profit</button>
     </form>
 
     {% if results %}
     <div class="results-section">
-        <h3>Simulation Results</h3>
+        <h3>What changes</h3>
         <div class="summary-box">
-            Original Profit Per Unit: <strong>${{ "%.2f"|format(results.original_profit_per_unit) }}</strong>
+            Profit on the original price: <strong>${{ "%.2f"|format(results.original_profit_per_unit) }}</strong>
         </div>
         <div class="summary-box positive">
-            New Simulated Profit Per Unit: <strong>${{ "%.2f"|format(results.new_profit_per_unit) }}</strong><br>
-            Projected Total Monthly Profit: <strong>${{ "%.2f"|format(results.new_total_profit) }}</strong>
+            Profit on the new price: <strong>${{ "%.2f"|format(results.new_profit_per_unit) }}</strong><br>
+            Profit for the month at that volume: <strong>${{ "%.2f"|format(results.new_total_profit) }}</strong>
         </div>
     </div>
     {% endif %}

@@ -1,20 +1,29 @@
 {% extends "base.html" %}
-{% block title %}Module 3: Pricing Strategy{% endblock %}
+{% block title %}3. Pricing options{% endblock %}
 {% block content %}
-    <h2>Module 3: Set Your Price</h2>
-    <p>Based on your costs and market data, here are several potential pricing strategies.</p>
+    <p class="steps">1 Cost · 2 Market · <span class="current">3 Price</span> · 4 What if</p>
+    <h2>Prices you could charge</h2>
+    <p>If you are unsure, start with cost-plus.</p>
     <div class="summary-box">
-        Your Fully Loaded Cost Per Unit is: <strong>${{ "%.2f"|format(loaded_cost) }}</strong>
+        Minimum charge to cover this job and overhead: <strong>${{ "%.2f"|format(loaded_cost) }}</strong>
     </div>
+
+    {% if competitors %}
+    <p>Quotes you entered:
+        {% for c in competitors %}
+        <strong>{{ c.name }}</strong> ${{ "%.2f"|format(c.price) }}{% if not loop.last %}, {% endif %}
+        {% endfor %}
+    </p>
+    {% endif %}
 
     <div class="results-table">
         <table>
             <thead>
                 <tr>
-                    <th>Pricing Strategy</th>
-                    <th>Suggested Price</th>
-                    <th>Profit Per Unit</th>
-                    <th>Break-Even Units (per month)</th>
+                    <th>Pricing option</th>
+                    <th>Price for the job</th>
+                    <th>Left after your cost</th>
+                    <th>Jobs per month to cover overhead</th>
                 </tr>
             </thead>
             <tbody>
@@ -32,7 +41,9 @@
         </table>
     </div>
 
+    <p class="credit">Free tool by <a href="https://github.com/sambam0">Samuel Antoncich</a></p>
+
     <a href="{{ url_for('module4_optimization_simulator', loaded_cost=loaded_cost, cogs=cogs) }}" class="button-link">
-        Proceed to Optimization Simulator →
+        Try a different cost or price
     </a>
 {% endblock %}

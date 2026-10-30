@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}1. Cost to deliver one job{% endblock %}
+{% block content %}
+    <p class="steps"><span class="current">1 Cost</span> · 2 Market · 3 Price · 4 What if</p>
+    <h2>What one job costs you</h2>
+    <p>Add the cost of delivering a single job. This is your cost, not the price you charge.</p>
+    <form method="POST" action="/">
+        <div class="form-section">
+            <h3>Cost of this job</h3>
+            <label for="labor_hours">Hours to deliver</label>
+            <input type="number" id="labor_hours" name="labor_hours" step="0.1" required>
+
+            <label for="labor_rate">Cost per hour ($)</label>
+            <p class="hint">What the work costs you, not the price you charge.</p>
+            <input type="number" id="labor_rate" name="labor_rate" step="0.01" required>
+
+            <label for="cost_materials">Direct costs ($)</label>
+            <p class="hint">Subcontractors, materials, and software used on this job.</p>
+            <input type="number" id="cost_materials" name="cost_materials" step="0.01" required>
+
+            <label for="packaging_cost">Tools and software ($)</label>
+            <input type="number" id="packaging_cost" name="packaging_cost" step="0.01">
+
+            <label for="shipping_cost">Travel and expenses ($)</label>
+            <input type="number" id="shipping_cost" name="shipping_cost" step="0.01">
+        </div>
+
+        <div class="form-section">
+            <h3>Overhead for the month</h3>
+            <label for="monthly_overhead">Monthly overhead ($)</label>
+            <p class="hint">Rent, insurance, admin, and other costs that are not tied to one job.</p>
+            <input type="number" id="monthly_overhead" name="monthly_overhead" step="1" required>
+
+            <label for="monthly_production_volume">Jobs you deliver per month</label>
+            <input type="number" id="monthly_production_volume" name="monthly_production_volume" step="1" required>
+        </div>
+
+        <button type="submit">See the minimum charge</button>
+    </form>
+{% endblock %}

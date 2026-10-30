@@ -1,24 +1,26 @@
 {% extends "base.html" %}
-{% block title %}Module 2: Market Analysis{% endblock %}
+{% block title %}2. Competitor quotes{% endblock %}
 {% block content %}
-    <h2>Module 2: Know Your Market</h2>
+    <p class="steps">1 Cost · <span class="current">2 Market</span> · 3 Price · 4 What if</p>
+    <h2>What similar jobs sell for</h2>
     <div class="summary-box">
-        Your <strong>Fully Loaded Cost Per Unit</strong> is: <strong>${{ "%.2f"|format(loaded_cost) }}</strong>. This is your break-even price.
+        Your cost to deliver this job, including overhead, is <strong>${{ "%.2f"|format(loaded_cost) }}</strong>.
+        This is the minimum you must charge to cover the job and your overhead.
     </div>
-    <p>Now, let's see what your competitors are doing. Enter the prices of up to 3 similar products.</p>
-    
-    <form method="POST" action="{{ url_for('module2_market_analyzer', loaded_cost=loaded_cost, cogs=request.args.get('cogs'), overhead=request.args.get('overhead')) }}">
+    <p>Enter up to three quotes for a similar job. A name and a price are enough.</p>
+
+    <form method="POST" action="{{ url_for('module2_market_analyzer', loaded_cost=loaded_cost, cogs=cogs, overhead=overhead) }}">
         {% for i in range(1, 4) %}
         <div class="form-section">
-            <h4>Competitor {{ i }}</h4>
-            <label for="comp_name_{{ i }}">Competitor/Product Name</label>
+            <h4>Quote {{ i }}</h4>
+            <label for="comp_name_{{ i }}">Who quoted it</label>
             <input type="text" id="comp_name_{{ i }}" name="comp_name_{{ i }}">
-            
-            <label for="comp_price_{{ i }}">Their Retail Price ($)</label>
+
+            <label for="comp_price_{{ i }}">Their price for a similar job ($)</label>
             <input type="number" id="comp_price_{{ i }}" name="comp_price_{{ i }}" step="0.01">
         </div>
         {% endfor %}
-        
-        <button type="submit">Analyze Market & Generate Pricing Strategies →</button>
+
+        <button type="submit">Build pricing options</button>
     </form>
 {% endblock %}

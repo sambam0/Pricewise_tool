@@ -17,6 +17,10 @@ header h1 {
     margin: 0;
     font-size: 1.8rem;
 }
+header p {
+    margin: 0.35rem 0 0;
+    font-size: 1rem;
+}
 main {
     max-width: 800px;
     margin: 2rem auto;
@@ -27,7 +31,31 @@ main {
 }
 footer {
     text-align: center;
-    margin-top: 2rem;
+    margin: 2rem 1rem;
+    color: #666;
+    font-size: 0.9rem;
+}
+footer a,
+.credit a {
+    color: #005f73;
+}
+.steps {
+    color: #666;
+    font-size: 0.95rem;
+    margin: 0 0 1rem;
+}
+.steps .current {
+    color: #005f73;
+    font-weight: bold;
+}
+.hint {
+    margin: -0.25rem 0 0.5rem;
+    color: #666;
+    font-size: 0.9rem;
+    font-weight: normal;
+}
+.credit {
+    margin: 1.5rem 0;
     color: #666;
     font-size: 0.9rem;
 }
