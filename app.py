@@ -6,7 +6,9 @@
 
 from flask import Flask, render_template, request, redirect, url_for
 
-app = Flask(__name__)
+# CSS lives in public/ so Vercel can serve it. The same folder is Flask's
+# static folder for local `python app.py`.
+app = Flask(__name__, static_folder='public/static', static_url_path='/static')
 
 def to_float(value):
     try:
