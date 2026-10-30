@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% block title %}1. Cost to deliver one job{% endblock %}
 {% block content %}
-    <p class="steps"><span class="current">1 Cost</span> · 2 Market · 3 Price · 4 What if</p>
+    <p class="steps"><span class="current">1 Your numbers</span> · 2 Quotes · 3 Result</p>
     <h2>What one job costs you</h2>
-    <p>Add the cost of delivering a single job. This is your cost, not the price you charge.</p>
+    <p>Add the cost of delivering a single job, what you charge today, and the margin you want.</p>
     <form method="POST" action="/">
         <div class="form-section">
             <h3>Cost of this job</h3>
@@ -32,9 +32,30 @@
             <input type="number" id="monthly_overhead" name="monthly_overhead" step="1" required>
 
             <label for="monthly_production_volume">Jobs you deliver per month</label>
+            <p class="hint">This is also the most jobs you can take on.</p>
             <input type="number" id="monthly_production_volume" name="monthly_production_volume" step="1" required>
         </div>
 
-        <button type="submit">See the minimum charge</button>
+        <div class="form-section">
+            <h3>Your price today</h3>
+            <label for="current_price">Price you charge today ($)</label>
+            <input type="number" id="current_price" name="current_price" step="0.01" required>
+
+            <label for="margin">Margin you want (%)</label>
+            <p class="hint">Added on top of the full cost of the job. 40 means a 40% markup.</p>
+            <input type="number" id="margin" name="margin" step="1" min="0" value="40" required>
+
+            <h3>Right now</h3>
+            <label class="choice">
+                <input type="radio" name="demand" value="need_work" required>
+                I need more work
+            </label>
+            <label class="choice">
+                <input type="radio" name="demand" value="booked">
+                I am booked and turning work away
+            </label>
+        </div>
+
+        <button type="submit">Add quotes</button>
     </form>
 {% endblock %}

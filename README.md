@@ -2,7 +2,7 @@
 
 A free calculator that helps a service business price one job.
 
-You enter what the job costs you, your monthly overhead, and up to three competitor quotes. PriceWise shows a minimum charge, a cost-plus price, a market price, a lower introductory price, and a higher specialist price.
+You enter what the job costs you, the price you charge today, the margin you want, and up to three competitor quotes. PriceWise picks one starting price, shows how it compares with what you charge now, and lists the other prices you could use.
 
 ## Run it
 
